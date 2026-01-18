@@ -4,7 +4,7 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
 from .capabilities import BinarySetter, Capability, EntityType, NumberSetter, OptionSetter
-from .const import DISPLAY_DIMMER_SPECIALS
+from .const import DISPLAY_DIMMER_SPECIALS, SPEAKER_CHANNELS
 from .features import DeviceFeature, ZoneFeature
 
 if TYPE_CHECKING:
@@ -56,6 +56,19 @@ _device_capabilities: dict[DeviceFeature, DeviceCapabilityFactory | dict[str, De
         lambda: device.data.party_enable,
         lambda val: device.set_party_mode(val),
     ),
+    DeviceFeature.SPEAKER_CHANNEL_SETTINGS: {
+        channel: lambda capability_id, device, ch=channel: NumberSetter(
+            capability_id,
+            f"{ch.replace('_', ' ').title()} Level",
+            EntityType.CONFIG,
+            lambda: getattr(device.data, f"speaker_channel_level_{ch}", 0),
+            lambda val: device.set_speaker_channel_level(ch, int(val)),
+            -20,
+            20,
+            1,
+        )
+        for channel in SPEAKER_CHANNELS
+    },
 }
 """Dictionary of all ZoneFeatures with a callable as value.
 

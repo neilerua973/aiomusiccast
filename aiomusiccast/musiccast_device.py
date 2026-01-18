@@ -401,6 +401,10 @@ class MusicCastDevice:
                         feature,
                     )
 
+            # Enable speaker_channel_settings if speaker_settings is available (hidden feature)
+            if DeviceFeature.SPEAKER_SETTINGS in self.features:
+                self.features |= DeviceFeature.SPEAKER_CHANNEL_SETTINGS
+
             self._zone_ids = [zone.get("id") for zone in self._features.get("zone", [])]
 
             for zone in self._features.get("zone", []):
@@ -669,6 +673,16 @@ class MusicCastDevice:
     async def set_surround_3d(self, zone_id, value):
         """Set 3d surround option."""
         await self.device.request(Zone.set_surround_3d(zone_id, value))
+
+    @_check_feature(DeviceFeature.SPEAKER_CHANNEL_SETTINGS)
+    async def set_speaker_channel_level(self, channel: str, level: int):
+        """Set individual speaker channel level.
+        
+        Args:
+            channel: The speaker channel to modify (front_l, center, front_r, height_l, height_r, surr_l, surr_r)
+            level: The level of the speaker channel (-20 to 20)
+        """
+        await self.device.request(System.set_channel_settings(channel, level))
 
     async def select_sound_mode(self, zone_id, sound_mode):
         """Select sound mode."""

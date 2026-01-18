@@ -529,6 +529,7 @@ class System:
         "SET_NAME_TEXT": "http://{host}/YamahaExtendedControl/v1/system/setNameText",
         "SET_SPEAKER_PATTERN": "http://{host}/YamahaExtendedControl/v1/system/setSpeakerPattern?num={num}",
         "SET_PARTYMODE": "http://{host}/YamahaExtendedControl/v1/system/setPartyMode?enable={enable}",
+        "SET_CHANNEL_SETTINGS": "http://{host}/YamahaExtendedControl/v1/system/setChannelSettings?channel={channel}&level={level}",
     }
 
     @staticmethod
@@ -1018,6 +1019,23 @@ class System:
         return System.URI["SET_SPEAKER_PATTERN"].format(host="{host}", num=num)
 
     # end-of-method set_speaker_pattern
+
+    @staticmethod
+    def set_channel_settings(channel, level):
+        """For setting individual speaker channel level.
+
+        Parameters
+        ----------
+        channel : str
+            Specifies the speaker channel to modify.
+            Valid values: front_l, center, front_r, height_l, height_r, surr_l, surr_r
+        level : int
+            Specifies the level of the speaker channel.
+            Value Range: -20 to 20
+        """
+        return System.URI["SET_CHANNEL_SETTINGS"].format(host="{host}", channel=channel, level=level)
+
+    # end-of-method set_channel_settings
 
 
 # end-of-class System

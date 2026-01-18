@@ -32,6 +32,7 @@ class DeviceFeature(Feature):
     AIRPLAY = auto()
     STEREO_PAIR = auto()
     SPEAKER_SETTINGS = auto()
+    SPEAKER_CHANNEL_SETTINGS = auto()
     DISKLAVIER_SETTINGS = auto()
     BACKGROUND_DOWNLOAD = auto()
     REMOTE_INFO = auto()

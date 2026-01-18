@@ -24,6 +24,7 @@ DEVICE_FUNC_LIST_TO_FEATURE_MAPPING = {
     "airplay": DeviceFeature.AIRPLAY,
     "stereo_pair": DeviceFeature.STEREO_PAIR,
     "speaker_settings": DeviceFeature.SPEAKER_SETTINGS,
+    "speaker_channel_settings": DeviceFeature.SPEAKER_CHANNEL_SETTINGS,
     "disklavier_settings": DeviceFeature.DISKLAVIER_SETTINGS,
     "background_download": DeviceFeature.BACKGROUND_DOWNLOAD,
     "remote_info": DeviceFeature.REMOTE_INFO,
@@ -105,3 +106,13 @@ MC_LINK_SOURCES = [MC_LINK, MAIN_SYNC]
 NULL_GROUP = "00000000000000000000000000000000"
 
 DISPLAY_DIMMER_SPECIALS = {-1: "auto"}
+
+SPEAKER_CHANNELS = [
+    "front_l",
+    "center",
+    "front_r",
+    "height_l",
+    "height_r",
+    "surr_l",
+    "surr_r",
+]
